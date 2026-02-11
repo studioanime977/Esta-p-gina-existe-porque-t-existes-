@@ -1,0 +1,1321 @@
+/* ═══════════════════════════════════════════════════════ */
+/*  RESET & BASE                                          */
+/* ═══════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cream: #FFF8F4;
+    --cream-dark: #FFF0E8;
+    --rose-light: #FADADD;
+    --rose: #F4A7BB;
+    --rose-deep: #E8889A;
+    --pink-soft: #F8C8DC;
+    --blush: #FFE4E6;
+    --lavender: #F3E5F5;
+    --green-stem: #8CB88A;
+    --green-leaf: #7DAF7B;
+    --green-dark: #6A9B68;
+    --text-dark: #3D2C2E;
+    --text-medium: #6B5152;
+    --text-light: #9B8283;
+    --white: #FFFFFF;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Lato', 'Segoe UI', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    background-color: var(--cream);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body.envelope-locked {
+    overflow: hidden;
+}
+
+/* Page content hidden until envelope opens */
+.page-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+}
+
+.page-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ANIMATIONS                                            */
+/* ═══════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gentleSway {
+
+    0%,
+    100% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(244, 167, 187, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(244, 167, 187, 0.4);
+    }
+}
+
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+@keyframes heartFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(var(--x)) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) translateX(var(--x)) scale(1.2);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-10deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(3deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  SECTION 1: HERO / PORTADA                            */
+/* ═══════════════════════════════════════════════════════ */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(170deg,
+            var(--cream) 0%,
+            var(--blush) 40%,
+            var(--rose-light) 70%,
+            var(--pink-soft) 100%);
+    overflow: hidden;
+}
+
+#petals-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ── CSS Tulips ──────────────────────────────── */
+.tulips-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 30px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.tulip {
+    position: relative;
+    animation: gentleSway 4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+.tulip-1 {
+    animation-delay: 0s;
+    height: 200px;
+}
+
+.tulip-2 {
+    animation-delay: 0.8s;
+    height: 240px;
+}
+
+.tulip-3 {
+    animation-delay: 1.6s;
+    height: 190px;
+}
+
+.tulip .stem {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 65%;
+    background: linear-gradient(to top, var(--green-dark), var(--green-stem));
+    border-radius: 3px;
+}
+
+.tulip .leaf {
+    position: absolute;
+    bottom: 25%;
+    width: 30px;
+    height: 50px;
+    border-radius: 50% 50% 50% 0;
+    background: linear-gradient(135deg, var(--green-leaf), var(--green-stem));
+}
+
+.tulip .leaf-left {
+    left: 50%;
+    transform: translateX(-100%) rotate(-30deg);
+    transform-origin: bottom right;
+}
+
+.tulip .leaf-right {
+    right: 50%;
+    transform: translateX(100%) rotate(30deg) scaleX(-1);
+    transform-origin: bottom left;
+}
+
+.tulip .flower {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 60px;
+}
+
+.tulip .petal {
+    position: absolute;
+    width: 22px;
+    height: 40px;
+    border-radius: 50% 50% 40% 40%;
+    background: linear-gradient(to top, var(--rose-deep), var(--rose));
+}
+
+.tulip-1 .petal {
+    background: linear-gradient(to top, var(--rose-deep), var(--pink-soft));
+}
+
+.tulip-2 .petal {
+    background: linear-gradient(to top, #E88CA0, var(--rose));
+}
+
+.tulip-3 .petal {
+    background: linear-gradient(to top, var(--rose-deep), #F5B8C8);
+}
+
+.tulip .petal-1 {
+    left: 14px;
+    top: 0px;
+}
+
+.tulip .petal-2 {
+    left: 4px;
+    top: 8px;
+    transform: rotate(-12deg);
+}
+
+.tulip .petal-3 {
+    left: 24px;
+    top: 8px;
+    transform: rotate(12deg);
+}
+
+.tulip .petal-4 {
+    left: 8px;
+    top: 15px;
+    transform: rotate(-6deg);
+    opacity: 0.85;
+}
+
+.tulip .petal-5 {
+    left: 20px;
+    top: 15px;
+    transform: rotate(6deg);
+    opacity: 0.85;
+}
+
+/* ── Hero Content ────────────────────────────── */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 40px 24px;
+    padding-bottom: 200px;
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-medium);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.3s forwards;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.3;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.6s forwards;
+}
+
+.hero-flower-icon {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+    animation-fill-mode: forwards;
+}
+
+.scroll-hint {
+    display: inline-block;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+}
+
+.scroll-arrow {
+    display: block;
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid var(--rose-deep);
+    border-bottom: 2px solid var(--rose-deep);
+    transform: rotate(45deg);
+    margin: 0 auto;
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  SECTION 2: MENSAJE ROMÁNTICO                         */
+/* ═══════════════════════════════════════════════════════ */
+.message-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg,
+            var(--pink-soft) 0%,
+            var(--cream) 15%,
+            var(--cream) 85%,
+            var(--blush) 100%);
+}
+
+.message-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow:
+        0 4px 30px rgba(244, 167, 187, 0.12),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+    animation: pulseGlow 4s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--pink-soft), var(--lavender));
+}
+
+.quote-mark {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--rose-light);
+    margin-bottom: -20px;
+}
+
+.message-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+}
+
+.message-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.message-divider::before,
+.message-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+}
+
+.divider-flower {
+    color: var(--rose);
+    font-size: 1.2rem;
+}
+
+.message-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text-medium);
+    font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  SECTION 3: EASTER EGG (STITCH)                      */
+/* ═══════════════════════════════════════════════════════ */
+.secret-section {
+    padding: 80px 0;
+    background: var(--blush);
+    text-align: center;
+}
+
+.secret-trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.secret-hint {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-medium);
+    font-style: italic;
+}
+
+.secret-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 2px solid var(--rose);
+    background: var(--white);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--rose-deep);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(244, 167, 187, 0.15);
+}
+
+.secret-btn:hover {
+    background: var(--rose-light);
+    color: var(--text-dark);
+    transform: scale(1.05);
+    box-shadow: 0 4px 25px rgba(244, 167, 187, 0.3);
+}
+
+.secret-btn:active {
+    transform: scale(0.98);
+}
+
+.btn-flower {
+    font-size: 1.3rem;
+    display: inline-block;
+    animation: float 2s ease-in-out infinite;
+}
+
+.secret-reveal {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding-top: 20px;
+}
+
+.secret-reveal.active {
+    display: flex;
+    animation: popIn 0.7s ease forwards;
+}
+
+/* ── Stitch Character (CSS Art) ──────────────── */
+.stitch-container {
+    position: relative;
+    width: 160px;
+    height: 200px;
+}
+
+.stitch {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ears */
+.stitch-ear {
+    position: absolute;
+    width: 40px;
+    height: 80px;
+    background: linear-gradient(135deg, #4A90D9, #357ABD);
+    border-radius: 50% 50% 40% 40%;
+    top: -10px;
+    z-index: 1;
+}
+
+.stitch-ear::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 55px;
+    background: linear-gradient(135deg, #7BB8E8, #5FA3DE);
+    border-radius: 50% 50% 40% 40%;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.stitch-ear-left {
+    left: 8px;
+    transform: rotate(-20deg);
+}
+
+.stitch-ear-right {
+    right: 8px;
+    transform: rotate(20deg);
+}
+
+/* Head */
+.stitch-head {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 95px;
+    background: linear-gradient(180deg, #4A90D9, #357ABD);
+    border-radius: 55px 55px 50px 50px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+/* Eyes */
+.stitch-eye {
+    position: absolute;
+    width: 28px;
+    height: 32px;
+    background: var(--white);
+    border-radius: 50%;
+    top: 25px;
+    z-index: 3;
+}
+
+.stitch-eye-left {
+    left: 20px;
+}
+
+.stitch-eye-right {
+    right: 20px;
+}
+
+.stitch-pupil {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.stitch-pupil::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    right: 2px;
+}
+
+/* Nose */
+.stitch-nose {
+    position: absolute;
+    width: 16px;
+    height: 12px;
+    background: #2A5F9E;
+    border-radius: 8px 8px 6px 6px;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+/* Mouth */
+.stitch-mouth {
+    position: absolute;
+    width: 40px;
+    height: 18px;
+    border-bottom: 3px solid #2A5F9E;
+    border-radius: 0 0 50% 50%;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+/* Body */
+.stitch-body {
+    position: absolute;
+    top: 115px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(180deg, #357ABD, #2A5F9E);
+    border-radius: 40px 40px 35px 35px;
+    z-index: 2;
+}
+
+.stitch-belly {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 36px;
+    background: linear-gradient(180deg, #7BB8E8, #5FA3DE);
+    border-radius: 22px 22px 20px 20px;
+}
+
+/* Arms */
+.stitch-arm {
+    position: absolute;
+    width: 22px;
+    height: 45px;
+    background: #4A90D9;
+    border-radius: 12px;
+    top: 5px;
+    z-index: 1;
+}
+
+.stitch-arm-left {
+    left: -14px;
+    transform: rotate(15deg);
+}
+
+.stitch-arm-right {
+    right: -14px;
+    transform: rotate(-15deg);
+}
+
+/* Floating hearts */
+.stitch-hearts {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-heart {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    font-size: 1.2rem;
+    animation: heartFloat 2.5s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.secret-message {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-style: italic;
+    max-width: 400px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  SECTION 4: CIERRE EMOTIVO                             */
+/* ═══════════════════════════════════════════════════════ */
+.closing-section {
+    padding: 100px 0 80px;
+    background: linear-gradient(180deg,
+            var(--blush) 0%,
+            var(--cream) 20%,
+            var(--rose-light) 80%,
+            var(--pink-soft) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.closing-tulips {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.closing-tulips span {
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+.closing-tulips span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.closing-tulips span:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.closing-tulips span:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+.closing-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    background: linear-gradient(135deg,
+            var(--text-dark),
+            var(--rose-deep),
+            var(--text-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
+
+.closing-text {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    line-height: 2;
+    color: var(--text-medium);
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+.closing-signature {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--text-medium);
+    font-size: 1.1rem;
+}
+
+.signature-heart {
+    font-size: 2rem;
+    margin-top: 10px;
+    display: inline-block;
+    animation: float 2s ease-in-out infinite;
+}
+
+.closing-petals-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--pink-soft), transparent);
+    pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  FOOTER                                                */
+/* ═══════════════════════════════════════════════════════ */
+.footer {
+    background: var(--pink-soft);
+    text-align: center;
+    padding: 24px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  RESPONSIVE                                            */
+/* ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .tulips-container {
+        gap: 16px;
+        height: 35%;
+    }
+
+    .tulip-1 {
+        height: 140px;
+    }
+
+    .tulip-2 {
+        height: 170px;
+    }
+
+    .tulip-3 {
+        height: 130px;
+    }
+
+    .tulip .flower {
+        width: 40px;
+        height: 48px;
+    }
+
+    .tulip .petal {
+        width: 18px;
+        height: 32px;
+    }
+
+    .tulip .petal-1 {
+        left: 11px;
+        top: 0px;
+    }
+
+    .tulip .petal-2 {
+        left: 3px;
+        top: 6px;
+    }
+
+    .tulip .petal-3 {
+        left: 19px;
+        top: 6px;
+    }
+
+    .tulip .petal-4 {
+        left: 6px;
+        top: 12px;
+    }
+
+    .tulip .petal-5 {
+        left: 16px;
+        top: 12px;
+    }
+
+    .tulip .leaf {
+        width: 22px;
+        height: 38px;
+    }
+
+    .hero-content {
+        padding-bottom: 160px;
+    }
+
+    .message-card {
+        padding: 40px 24px;
+        border-radius: 18px;
+    }
+
+    .quote-mark {
+        font-size: 3.5rem;
+    }
+
+    .message-section {
+        padding: 60px 0;
+    }
+
+    .secret-section {
+        padding: 60px 0;
+    }
+
+    .closing-section {
+        padding: 60px 0 60px;
+    }
+
+    .stitch-container {
+        width: 130px;
+        height: 170px;
+        transform: scale(0.85);
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-content {
+        padding: 20px 16px;
+        padding-bottom: 140px;
+    }
+
+    .tulips-container {
+        gap: 10px;
+    }
+
+    .tulip-1 {
+        height: 110px;
+    }
+
+    .tulip-2 {
+        height: 140px;
+    }
+
+    .tulip-3 {
+        height: 100px;
+    }
+
+    .message-card {
+        padding: 30px 18px;
+    }
+
+    .stitch-container {
+        transform: scale(0.7);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  ENVELOPE COVER / PORTADA TIPO CARTA                   */
+/* ═══════════════════════════════════════════════════════ */
+.envelope-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg,
+            #FFF5F0 0%,
+            #FFE8E0 30%,
+            #FADADD 60%,
+            #F8C8DC 100%);
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.envelope-overlay.opening {
+    pointer-events: none;
+}
+
+.envelope-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.envelope-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* ── Floating bg petals ──────────────────────── */
+.envelope-bg-petals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes envPetalDrift {
+    0% {
+        transform: translateY(-20px) rotate(0deg) scale(var(--s));
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.6;
+    }
+
+    85% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg) scale(var(--s));
+        opacity: 0;
+    }
+}
+
+.env-petal {
+    position: absolute;
+    top: -30px;
+    left: var(--l);
+    font-size: 1.4rem;
+    animation: envPetalDrift 8s ease-in-out infinite;
+    animation-delay: var(--d);
+    opacity: 0;
+}
+
+/* ── Envelope ────────────────────────────────── */
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 200px;
+    z-index: 1;
+    perspective: 600px;
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(180deg, #FFF8F2, #FFEFE6);
+    border-radius: 4px 4px 12px 12px;
+    box-shadow:
+        0 8px 32px rgba(232, 136, 154, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 -2px 6px rgba(244, 167, 187, 0.1);
+    overflow: hidden;
+}
+
+/* Inner texture lines */
+.envelope-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background:
+        linear-gradient(135deg, transparent 48%, rgba(244, 167, 187, 0.08) 48%, rgba(244, 167, 187, 0.08) 52%, transparent 52%),
+        linear-gradient(225deg, transparent 48%, rgba(244, 167, 187, 0.08) 48%, rgba(244, 167, 187, 0.08) 52%, transparent 52%);
+    pointer-events: none;
+}
+
+/* ── Flap ────────────────────────────────────── */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(180deg, #FFEFE6, #FFE4D9);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 3;
+    transform-origin: top center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.envelope-flap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(244, 167, 187, 0.1), transparent);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+/* ── Letter ──────────────────────────────────── */
+.envelope-letter {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 120px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.envelope.open .envelope-letter {
+    transform: translateX(-50%) translateY(-100px);
+}
+
+.letter-text {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--rose-deep);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.8s;
+}
+
+.envelope.open .letter-text {
+    opacity: 1;
+}
+
+/* ── Seal ────────────────────────────────────── */
+.envelope-seal {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #E8889A, #D4687A);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    box-shadow: 0 3px 12px rgba(212, 104, 122, 0.35);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.envelope.open .envelope-seal {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5) rotate(45deg);
+}
+
+.seal-heart {
+    font-size: 1.3rem;
+    filter: brightness(1.2);
+}
+
+/* ── Subtitle & Button ───────────────────────── */
+.envelope-subtitle {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-medium);
+    opacity: 0;
+    animation: fadeIn 1s ease 0.5s forwards;
+    z-index: 1;
+}
+
+.envelope-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 40px;
+    border: none;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow:
+        0 4px 20px rgba(232, 136, 154, 0.4),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.8s forwards;
+    z-index: 1;
+}
+
+.envelope-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow:
+        0 8px 30px rgba(232, 136, 154, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.envelope-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.envelope-btn-flower {
+    font-size: 1.3rem;
+    display: inline-block;
+    animation: float 2s ease-in-out infinite;
+}
+
+/* ── Envelope responsive ─────────────────────── */
+@media (max-width: 768px) {
+    .envelope {
+        width: 240px;
+        height: 170px;
+    }
+
+    .envelope-body {
+        height: 130px;
+    }
+
+    .envelope-flap {
+        height: 85px;
+    }
+
+    .envelope-letter {
+        height: 100px;
+    }
+
+    .envelope-seal {
+        top: 45px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .envelope-btn {
+        padding: 14px 34px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .envelope {
+        width: 210px;
+        height: 150px;
+    }
+
+    .envelope-body {
+        height: 115px;
+    }
+
+    .envelope-flap {
+        height: 75px;
+    }
+
+    .envelope-letter {
+        height: 90px;
+    }
+
+    .letter-text {
+        font-size: 1.1rem;
+    }
+
+    .envelope-seal {
+        top: 38px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .seal-heart {
+        font-size: 1.1rem;
+    }
+}

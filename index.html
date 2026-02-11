@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esta página existe porque tú existes 🌷</title>
+    <meta name="description" content="Una página especial hecha con cariño, solo para ti.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PORTADA: SOBRE / ENVELOPE                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="envelope-overlay" id="envelope-overlay">
+        <div class="envelope-scene">
+            <!-- Floating mini petals in background -->
+            <div class="envelope-bg-petals">
+                <span class="env-petal" style="--d:0s;--l:15%;--s:0.8">🌸</span>
+                <span class="env-petal" style="--d:1.2s;--l:75%;--s:0.6">🌷</span>
+                <span class="env-petal" style="--d:2.5s;--l:40%;--s:0.9">✿</span>
+                <span class="env-petal" style="--d:0.7s;--l:85%;--s:0.5">🌸</span>
+                <span class="env-petal" style="--d:1.8s;--l:25%;--s:0.7">🌷</span>
+            </div>
+
+            <!-- The envelope -->
+            <div class="envelope" id="envelope">
+                <!-- Envelope flap (triangle top) -->
+                <div class="envelope-flap" id="envelope-flap"></div>
+                <!-- Envelope body -->
+                <div class="envelope-body">
+                    <!-- Letter peeking out -->
+                    <div class="envelope-letter" id="envelope-letter">
+                        <p class="letter-text">Para ti 💕</p>
+                    </div>
+                </div>
+                <!-- Seal / wax stamp -->
+                <div class="envelope-seal" id="envelope-seal">
+                    <span class="seal-heart">💗</span>
+                </div>
+            </div>
+
+            <!-- Text and CTA -->
+            <p class="envelope-subtitle">Tienes un mensaje especial</p>
+            <button class="envelope-btn" id="envelope-btn">
+                <span>Ábreme</span>
+                <span class="envelope-btn-flower">🌷</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- CONTENIDO PRINCIPAL (oculto hasta abrir)   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="page-content" id="page-content">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECCIÓN 1: PORTADA / HERO                  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <section id="hero" class="hero">
+            <div class="tulips-container">
+                <div class="tulip tulip-1">
+                    <div class="stem"></div>
+                    <div class="leaf leaf-left"></div>
+                    <div class="leaf leaf-right"></div>
+                    <div class="flower">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                    </div>
+                </div>
+                <div class="tulip tulip-2">
+                    <div class="stem"></div>
+                    <div class="leaf leaf-left"></div>
+                    <div class="leaf leaf-right"></div>
+                    <div class="flower">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                    </div>
+                </div>
+                <div class="tulip tulip-3">
+                    <div class="stem"></div>
+                    <div class="leaf leaf-left"></div>
+                    <div class="leaf leaf-right"></div>
+                    <div class="flower">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Falling petals -->
+            <canvas id="petals-canvas"></canvas>
+
+            <div class="hero-content fade-in">
+                <p class="hero-subtitle">Para alguien muy especial</p>
+                <h1 class="hero-title">Esta página existe<br>porque tú existes</h1>
+                <div class="hero-flower-icon">🌷</div>
+                <a href="#mensaje" class="scroll-hint" aria-label="Desplázate hacia abajo">
+                    <span class="scroll-arrow"></span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECCIÓN 2: MENSAJE ROMÁNTICO               -->
+        <!-- ═══════════════════════════════════════════ -->
+        <section id="mensaje" class="message-section">
+            <div class="container">
+                <div class="message-card reveal">
+                    <div class="quote-mark">"</div>
+                    <p class="message-text">
+                        No necesito grandes palabras para decirte lo que siento.<br>
+                        Solo quiero que sepas que entre todo lo que existe,<br>
+                        lo más bonito que me ha pasado eres tú.
+                    </p>
+                    <div class="message-divider">
+                        <span class="divider-flower">✿</span>
+                    </div>
+                    <p class="message-sub">
+                        Cada día contigo se siente como un regalo que no esperaba<br>
+                        pero que agradezco con todo el corazón.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECCIÓN 3: EASTER EGG (STITCH)             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <section id="secreto" class="secret-section">
+            <div class="container">
+                <div class="secret-trigger reveal" id="secret-trigger">
+                    <p class="secret-hint">Hay algo escondido aquí... 💕</p>
+                    <button class="secret-btn" id="secret-btn" aria-label="Descubre el secreto">
+                        <span class="btn-flower">🌸</span>
+                        <span class="btn-text">Toca aquí</span>
+                    </button>
+                </div>
+                <div class="secret-reveal" id="secret-reveal">
+                    <div class="stitch-container">
+                        <!-- CSS Stitch character -->
+                        <div class="stitch">
+                            <div class="stitch-ear stitch-ear-left"></div>
+                            <div class="stitch-ear stitch-ear-right"></div>
+                            <div class="stitch-head">
+                                <div class="stitch-eye stitch-eye-left">
+                                    <div class="stitch-pupil"></div>
+                                </div>
+                                <div class="stitch-eye stitch-eye-right">
+                                    <div class="stitch-pupil"></div>
+                                </div>
+                                <div class="stitch-nose"></div>
+                                <div class="stitch-mouth"></div>
+                            </div>
+                            <div class="stitch-body">
+                                <div class="stitch-belly"></div>
+                                <div class="stitch-arm stitch-arm-left"></div>
+                                <div class="stitch-arm stitch-arm-right"></div>
+                            </div>
+                        </div>
+                        <div class="stitch-hearts">
+                            <span class="floating-heart" style="--delay: 0s; --x: -20px;">💗</span>
+                            <span class="floating-heart" style="--delay: 0.5s; --x: 20px;">💕</span>
+                            <span class="floating-heart" style="--delay: 1s; --x: 0px;">💖</span>
+                        </div>
+                    </div>
+                    <p class="secret-message">Ohana significa familia.<br>Y tú eres parte de la mía. 💙</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECCIÓN 4: CIERRE EMOTIVO                  -->
+        <!-- ═══════════════════════════════════════════ -->
+        <section id="cierre" class="closing-section">
+            <div class="container">
+                <div class="closing-content reveal">
+                    <div class="closing-tulips">
+                        <span>🌷</span><span>🌷</span><span>🌷</span>
+                    </div>
+                    <h2 class="closing-title">Gracias por existir</h2>
+                    <p class="closing-text">
+                        No sé qué habré hecho para merecerte,<br>
+                        pero doy gracias cada día por tenerte en mi vida.<br>
+                        Esta página es solo un pequeño reflejo<br>
+                        de lo mucho que significas para mí.
+                    </p>
+                    <div class="closing-signature">
+                        <p>Con todo mi cariño,</p>
+                        <p class="signature-heart">❤️</p>
+                    </div>
+                </div>
+            </div>
+            <div class="closing-petals-bg"></div>
+        </section>
+
+    </div><!-- end .page-content -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Hecha con 💗 solo para ti</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
