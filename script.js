@@ -61,6 +61,20 @@ function initEnvelope() {
  * Creates an explosion of tulips from the center of the screen
  */
 function createTulipBurst() {
+    console.log("Tulip burst triggered!");
+
+    // Test: Create a temporary red box in the center to confirm script is running
+    const testBox = document.createElement('div');
+    testBox.style.position = 'fixed';
+    testBox.style.top = '50%';
+    testBox.style.left = '50%';
+    testBox.style.width = '100px';
+    testBox.style.height = '100px';
+    testBox.style.backgroundColor = 'red';
+    testBox.style.zIndex = '9999';
+    document.body.appendChild(testBox);
+    setTimeout(() => testBox.remove(), 2000);
+
     const burstCount = 40;
     const body = document.body;
 
@@ -79,7 +93,7 @@ function createTulipBurst() {
         tulip.style.setProperty('--tx', `${tx}px`);
         tulip.style.setProperty('--ty', `${ty}px`);
         tulip.style.setProperty('--tr', `${tr}deg`);
-        
+
         // Slight delay for a more natural burst
         tulip.style.animationDelay = `${Math.random() * 0.2}s`;
 
