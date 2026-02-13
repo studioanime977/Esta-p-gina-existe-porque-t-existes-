@@ -30,6 +30,14 @@ function initEnvelope() {
         envelope.classList.add('open');
         overlay.classList.add('opening');
 
+        // Hide volume alert
+        const volAlert = document.getElementById('volume-alert');
+        if (volAlert) {
+            volAlert.style.transition = 'opacity 0.5s ease';
+            volAlert.style.opacity = '0';
+            setTimeout(() => volAlert.remove(), 500);
+        }
+
         // Trigger Tulip Burst
         createTulipBurst();
 
