@@ -1336,8 +1336,9 @@ body.envelope-locked {
         transform: translate(-50%, -50%) scale(0) rotate(0deg);
         opacity: 1;
     }
+
     100% {
-        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--tr));
+        transform: translate(var(--tx, 100px), var(--ty, -100px)) scale(1.5) rotate(var(--tr, 45deg));
         opacity: 0;
     }
 }
