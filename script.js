@@ -20,9 +20,18 @@ function initEnvelope() {
     document.body.classList.add('envelope-locked');
 
     btn.addEventListener('click', () => {
+        // 0. Play music
+        const music = document.getElementById('bg-music');
+        if (music) {
+            music.play().catch(e => console.log("Audio autoplay prevented or error:", e));
+        }
+
         // 1. Open the envelope (flap + letter animation via CSS)
         envelope.classList.add('open');
         overlay.classList.add('opening');
+
+        // Trigger Tulip Burst
+        createTulipBurst();
 
         // 2. After envelope animation plays, fade out overlay
         setTimeout(() => {
@@ -46,6 +55,41 @@ function initEnvelope() {
             }, 1000);
         }, 1800);
     });
+}
+
+/**
+ * Creates an explosion of tulips from the center of the screen
+ */
+function createTulipBurst() {
+    const burstCount = 40;
+    const body = document.body;
+
+    for (let i = 0; i < burstCount; i++) {
+        const tulip = document.createElement('div');
+        tulip.className = 'burst-tulip';
+        tulip.innerText = '🌷';
+
+        // Random trajectory
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 200 + Math.random() * 400;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        const tr = Math.random() * 360; // Rotation
+
+        tulip.style.setProperty('--tx', `${tx}px`);
+        tulip.style.setProperty('--ty', `${ty}px`);
+        tulip.style.setProperty('--tr', `${tr}deg`);
+        
+        // Slight delay for a more natural burst
+        tulip.style.animationDelay = `${Math.random() * 0.2}s`;
+
+        body.appendChild(tulip);
+
+        // Remove element after animation
+        setTimeout(() => {
+            tulip.remove();
+        }, 1700);
+    }
 }
 
 /* ─── Scroll Reveal ──────────────────────────────────── */

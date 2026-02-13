@@ -1319,3 +1319,25 @@ body.envelope-locked {
         font-size: 1.1rem;
     }
 }
+
+/* ── Tulip Burst Animation ───────────────────── */
+.burst-tulip {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 2rem;
+    pointer-events: none;
+    z-index: 3000;
+    animation: tulipBurst 1.5s ease-out forwards;
+}
+
+@keyframes tulipBurst {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--tr));
+        opacity: 0;
+    }
+}
